@@ -1,9 +1,8 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <meta charset="utf-8"/>
 <title>Wordle Helper</title>
-<body>
-
 <style>
 
 body {
@@ -51,6 +50,8 @@ table {
 .button {
 	font-size: 2em;
 	text-align: center;
+	margin: 0 auto;
+	display: block;
 }
 
 .display {
@@ -58,8 +59,8 @@ table {
 	color: gray;
 	text-align: center;
 }
-
 </style>
+<body>
 <h1>Wordle Helper</h1>
 <p class="display">Click letter boxes to cycle color.  Press update to filter the word list.</p>
 <table>
@@ -106,9 +107,9 @@ table {
 		<td><input id='f4' maxlength=1 type="text" value="" onchange="changeColor('f4',false);" onclick="changeColor('f4',true);"></td>
 	</tr>
 </table>
-	<center><input type="button" class="button" value="update" onclick="update_guess_list();" /></center>
-	<br/>
-	<div id="display" class="display">Press update to populate answer words.</div>
+<input type="button" class="button" value="update" onclick="update_guess_list();" />
+<br/>
+<div id="display" class="display">Press update to populate answer words.</div>
 <script>
 var colors = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
 
@@ -2265,4 +2266,3 @@ function autotab(original,destination){
 
 </body>
 </html>
-
