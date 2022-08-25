@@ -63,50 +63,7 @@ table {
 <body>
 <h1>Wordle Helper</h1>
 <p class="display">Click letter boxes to cycle color.  Press update to filter the word list.</p>
-<table>
-	<tr>
-		<td><input id='a0' maxlength=1 type="text" value="" onchange="changeColor('a0',false);" onclick="changeColor('a0',true);" onKeyup="autotab(this, a1)"></td>
-		<td><input id='a1' maxlength=1 type="text" value="" onchange="changeColor('a1',false);" onclick="changeColor('a1',true);" onKeyup="autotab(this, a2)"></td>
-		<td><input id='a2' maxlength=1 type="text" value="" onchange="changeColor('a2',false);" onclick="changeColor('a2',true);" onKeyup="autotab(this, a3)"></td>
-		<td><input id='a3' maxlength=1 type="text" value="" onchange="changeColor('a3',false);" onclick="changeColor('a3',true);" onKeyup="autotab(this, a4)"></td>
-		<td><input id='a4' maxlength=1 type="text" value="" onchange="changeColor('a4',false);" onclick="changeColor('a4',true);"></td>
-	</tr>
-	<tr>
-		<td><input id='b0' maxlength=1 type="text" value="" onchange="changeColor('b0',false);" onclick="changeColor('b0',true);" onKeyup="autotab(this, b1)"></td>
-		<td><input id='b1' maxlength=1 type="text" value="" onchange="changeColor('b1',false);" onclick="changeColor('b1',true);" onKeyup="autotab(this, b2)"></td>
-		<td><input id='b2' maxlength=1 type="text" value="" onchange="changeColor('b2',false);" onclick="changeColor('b2',true);" onKeyup="autotab(this, b3)"></td>
-		<td><input id='b3' maxlength=1 type="text" value="" onchange="changeColor('b3',false);" onclick="changeColor('b3',true);" onKeyup="autotab(this, b4)"></td>
-		<td><input id='b4' maxlength=1 type="text" value="" onchange="changeColor('b4',false);" onclick="changeColor('b4',true);"></td>
-	</tr>
-	<tr>
-		<td><input id='c0' maxlength=1 type="text" value="" onchange="changeColor('c0',false);" onclick="changeColor('c0',true);" onKeyup="autotab(this, c1)"></td>
-		<td><input id='c1' maxlength=1 type="text" value="" onchange="changeColor('c1',false);" onclick="changeColor('c1',true);" onKeyup="autotab(this, c2)"></td>
-		<td><input id='c2' maxlength=1 type="text" value="" onchange="changeColor('c2',false);" onclick="changeColor('c2',true);" onKeyup="autotab(this, c3)"></td>
-		<td><input id='c3' maxlength=1 type="text" value="" onchange="changeColor('c3',false);" onclick="changeColor('c3',true);" onKeyup="autotab(this, c4)"></td>
-		<td><input id='c4' maxlength=1 type="text" value="" onchange="changeColor('c4',false);" onclick="changeColor('c4',true);"></td>
-	</tr>
-	<tr>
-		<td><input id='d0' maxlength=1 type="text" value="" onchange="changeColor('d0',false);" onclick="changeColor('d0',true);" onKeyup="autotab(this, d1)"></td>
-		<td><input id='d1' maxlength=1 type="text" value="" onchange="changeColor('d1',false);" onclick="changeColor('d1',true);" onKeyup="autotab(this, d2)"></td>
-		<td><input id='d2' maxlength=1 type="text" value="" onchange="changeColor('d2',false);" onclick="changeColor('d2',true);" onKeyup="autotab(this, d3)"></td>
-		<td><input id='d3' maxlength=1 type="text" value="" onchange="changeColor('d3',false);" onclick="changeColor('d3',true);" onKeyup="autotab(this, d4)"></td>
-		<td><input id='d4' maxlength=1 type="text" value="" onchange="changeColor('d4',false);" onclick="changeColor('d4',true);"></td>
-	</tr>
-	<tr>
-		<td><input id='e0' maxlength=1 type="text" value="" onchange="changeColor('e0',false);" onclick="changeColor('e0',true);" onKeyup="autotab(this, e1)"></td>
-		<td><input id='e1' maxlength=1 type="text" value="" onchange="changeColor('e1',false);" onclick="changeColor('e1',true);" onKeyup="autotab(this, e2)"></td>
-		<td><input id='e2' maxlength=1 type="text" value="" onchange="changeColor('e2',false);" onclick="changeColor('e2',true);" onKeyup="autotab(this, e3)"></td>
-		<td><input id='e3' maxlength=1 type="text" value="" onchange="changeColor('e3',false);" onclick="changeColor('e3',true);" onKeyup="autotab(this, e4)"></td>
-		<td><input id='e4' maxlength=1 type="text" value="" onchange="changeColor('e4',false);" onclick="changeColor('e4',true);"></td>
-	</tr>
-	<tr>
-		<td><input id='f0' maxlength=1 type="text" value="" onchange="changeColor('f0',false);" onclick="changeColor('f0',true);" onKeyup="autotab(this, f1)"></td>
-		<td><input id='f1' maxlength=1 type="text" value="" onchange="changeColor('f1',false);" onclick="changeColor('f1',true);" onKeyup="autotab(this, f2)"></td>
-		<td><input id='f2' maxlength=1 type="text" value="" onchange="changeColor('f2',false);" onclick="changeColor('f2',true);" onKeyup="autotab(this, f3)"></td>
-		<td><input id='f3' maxlength=1 type="text" value="" onchange="changeColor('f3',false);" onclick="changeColor('f3',true);" onKeyup="autotab(this, f4)"></td>
-		<td><input id='f4' maxlength=1 type="text" value="" onchange="changeColor('f4',false);" onclick="changeColor('f4',true);"></td>
-	</tr>
-</table>
+<div id="board"></div>
 <input type="button" class="button" value="update" onclick="update_guess_list();" />
 <br/>
 <div id="display" class="display">Press update to populate answer words.</div>
@@ -2161,7 +2118,7 @@ WORDS = [
     'dryer',
     'loser']
 
-window.onload = update()
+window.onload = build_table()
 
 function changeColor(tag_id,was_click)
 {
@@ -2217,21 +2174,25 @@ function update_guess_list() {
 		for (var j=0; j < 5; j++) {
 			if(excludes.includes(WORDS[i][j])) {
 				valid = false;
+				break
 			}
 		}
 		for (var j=0; j < contains.length; j++) {
 			if (!WORDS[i].includes(contains[j])) {
 				valid = false;
+				break
 			}
 		}
 		for (var j=0; j < 5; j++) {
 			if(pos_matches[j] != '-' && pos_matches[j] != WORDS[i][j]) {
 				valid = false;
+				break
 			}
 		}
 		for (var j=0; j<neg_matches.length; j++) {
 			if(WORDS[i][parseInt(neg_matches[j][1])] == neg_matches[j][0]) {
 				valid = false;
+				break
 			}
 		}
 		if(valid) {
@@ -2262,7 +2223,26 @@ function autotab(original,destination){
 	}
 }
 
-</script>
+function build_table() {
 
+	var mytable = "<table>";
+	for (let char of 'abcdef') {
+		mytable += "<tr>";
+		for (var i = 0; i < 5; i++) {
+			mytable += "<td>";
+			mytable += "<input id='" + char+String(i) + "' maxlength=1 type='text' value='' onchange=\"changeColor('" + char+String(i) + "',false);\" onclick=\"changeColor('" + char+String(i) + "',true);\"";
+			if(i != 4) {
+				mytable += " onKeyup=\"autotab(this," + char + String(i+1) +");\"";
+			}
+			mytable += "></td>";
+		}
+		mytable += "</tr>";
+	}
+	mytable += "</table>";
+	document.getElementById("board").innerHTML = mytable;
+	update();
+}
+
+</script>
 </body>
 </html>
