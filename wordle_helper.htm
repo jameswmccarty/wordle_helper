@@ -68,7 +68,7 @@ table {
 <br/>
 <div id="display" class="display">Press update to populate answer words.</div>
 <script>
-var colors = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
+var click_count = {};
 
 WORDS = [
     'which',
@@ -2122,14 +2122,10 @@ window.onload = build_table()
 
 function changeColor(tag_id,was_click)
 {
-	var multiplier = 'abcdef'.indexOf(tag_id[0])
-	var offset     = parseInt(tag_id[1])
 	if ("ABCDEFGHIJKLMNOPQRSTUVWXYZ".includes(document.getElementById(tag_id).value.toUpperCase()) &&
 		document.getElementById(tag_id).value.length > 0 && was_click) {
-		colors[multiplier*5+offset] += 1
-		colors[multiplier*5+offset] %= 3
-	} else {
-		colors[multiplier*5+offset] = 0
+		click_count[tag_id] += 1;
+		click_count[tag_id] %= 3;
 	}
 	update()
 }
@@ -2150,7 +2146,7 @@ function update_guess_list() {
 		}
 		if(is_word) {
 			for (var i=0; i < 5; i++) {
-				var color = colors['abcdef'.indexOf(char) * 5 + i]
+				var color = click_count[char+String(i)]
 				if(color == 0 ) { 
 					//black
 					excludes += entry[i]
@@ -2206,19 +2202,30 @@ function update_guess_list() {
 
 function update() {
 	//re-draw the text color blocks
-	var j = 0;
 	for (let char of 'abcdef') {
-		for (var off = 0; off < 5; off++) {
-			let index = colors[j*5 + off]
-			let result_color = ["letter-gray","letter-yellow","letter-green"][index]
-			document.getElementById(char+off).className = result_color;
+		for (var i = 0; i < 5; i++) {
+			if (document.getElementById(char+String(i)).value == '') {
+				click_count[char+String(i)] = 0;
+			}
+			let result_color = ["letter-gray","letter-yellow","letter-green"][click_count[char+String(i)]]
+			document.getElementById(char+i).className = result_color;
 		}
-		j++;
 	}
 }
 
-function autotab(original,destination){
+function autotab(keyevent, original,destination){
+	if(keyevent.keyCode == 8) {
+		return;
+	}
 	if (original.getAttribute && original.value.length == original.getAttribute("maxlength")) {
+		destination.focus();
+	}
+}
+
+function autoback(keyevent, original, destination){
+	if (keyevent.keyCode == 8) {
+		original.value = '';
+		update()
 		destination.focus();
 	}
 }
@@ -2229,16 +2236,24 @@ function build_table() {
 	for (let char of 'abcdef') {
 		mytable += "<tr>";
 		for (var i = 0; i < 5; i++) {
+			// setup of initial color
+			click_count[char+String(i)] = 0;
+			// build table element
 			mytable += "<td>";
-			mytable += "<input id='" + char+String(i) + "' maxlength=1 type='text' value='' onchange=\"changeColor('" + char+String(i) + "',false);\" onclick=\"changeColor('" + char+String(i) + "',true);\"";
+			mytable += "<input id='" + char+String(i) + "' maxlength=1 type='text' value='' "
+			mytable += "onchange=\"changeColor('" + char+String(i) + "',false);\" "
+			mytable += "onclick=\"changeColor('" + char+String(i) + "',true);\""
 			if(i != 4) {
-				mytable += " onKeyup=\"autotab(this," + char + String(i+1) +");\"";
+				mytable += " onKeyup=\"autotab(event, this," + char + String(i+1) +");\""
 			}
-			mytable += "></td>";
+			if(i != 0) {
+				mytable += " onKeydown=\"autoback(event, this, " + char + String(i-1) +");\""
+			}
+			mytable += "></td>"
 		}
-		mytable += "</tr>";
+		mytable += "</tr>"
 	}
-	mytable += "</table>";
+	mytable += "</table>"
 	document.getElementById("board").innerHTML = mytable;
 	update();
 }
