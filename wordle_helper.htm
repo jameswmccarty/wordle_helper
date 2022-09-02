@@ -2401,10 +2401,10 @@ function changeColor(tag_id,was_click)
 
 function update_guess_list() {
 
-	var contains = '' //yellow letters
-	var excludes = '' // black letters
+	var contains = new Set() //yellow letters
+	var excludes = new Set() // black letters
 	var pos_matches = ['-','-','-','-','-'] //green letters
-	var neg_matches = [] //letter+position values that are yellow
+	var neg_matches = new Set() //letter+position values that are yellow
 	for (let char of 'abcdef') {
 		var entry = ''
 		var is_word = true;
@@ -2418,29 +2418,24 @@ function update_guess_list() {
 				var color = click_count[char+String(i)]
 				if(color == 0) { 
 					//black
-					excludes += entry[i]
+					excludes.add(entry[i])
 				}
 				else if (color == 1) {
 					//yellow
-					contains += entry[i]
-					neg_matches.push(entry[i]+i)
+					contains.add(entry[i])
+					neg_matches.add(entry[i]+i)
 				}
 				else if (color == 2) {
-					contains += entry[i]
+					contains.add(entry[i])
 					pos_matches[i] = entry[i]
 				}
 			}
 		}
 	}
 
-	for(var i=0; i<contains.length; i++) {
-		if (excludes.includes(contains[i])) {
-			excludes = excludes.replaceAll(contains[i],'')
-		}
-	}
-	for(var i=0; i<5; i++) {
-		if (excludes.includes(pos_matches[i])) {
-			excludes = excludes.replaceAll(pos_matches[i],'')
+	for(const item of contains) {
+		if (excludes.has(item)) {
+			excludes.delete(item)
 		}
 	}
 
@@ -2449,13 +2444,13 @@ function update_guess_list() {
 	for(var i=0; i < WORDS.length; i++) {
 		var valid = true
 		for (var j=0; j < 5; j++) {
-			if(excludes.includes(WORDS[i][j])) {
+			if(excludes.has(WORDS[i][j])) {
 				valid = false;
 				break
 			}
 		}
-		for (var j=0; j < contains.length; j++) {
-			if (!WORDS[i].includes(contains[j])) {
+		for (const item of contains) {
+			if (!WORDS[i].includes(item)) {
 				valid = false;
 				break
 			}
@@ -2466,8 +2461,8 @@ function update_guess_list() {
 				break
 			}
 		}
-		for (var j=0; j<neg_matches.length; j++) {
-			if(WORDS[i][parseInt(neg_matches[j][1])] == neg_matches[j][0]) {
+		for (const item of neg_matches) {
+			if(WORDS[i][parseInt(item[1])] == item[0]) {
 				valid = false;
 				break
 			}
