@@ -2432,7 +2432,7 @@ function update_guess_list() {
 			}
 		}
 	}
-	console.log(contains, excludes)
+
 	for(var i=0; i<contains.length; i++) {
 		if (excludes.includes(contains[i])) {
 			excludes = excludes.replaceAll(contains[i],'')
@@ -2443,7 +2443,7 @@ function update_guess_list() {
 			excludes = excludes.replaceAll(pos_matches[i],'')
 		}
 	}
-	console.log(contains, pos_matches, excludes)
+
 	var filtered_words = []
 
 	for(var i=0; i < WORDS.length; i++) {
