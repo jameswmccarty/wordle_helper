@@ -2416,7 +2416,7 @@ function update_guess_list() {
 		if(is_word) {
 			for (var i=0; i < 5; i++) {
 				var color = click_count[char+String(i)]
-				if(color == 0 ) { 
+				if(color == 0) { 
 					//black
 					excludes += entry[i]
 				}
@@ -2432,6 +2432,18 @@ function update_guess_list() {
 			}
 		}
 	}
+	console.log(contains, excludes)
+	for(var i=0; i<contains.length; i++) {
+		if (excludes.includes(contains[i])) {
+			excludes = excludes.replaceAll(contains[i],'')
+		}
+	}
+	for(var i=0; i<5; i++) {
+		if (excludes.includes(pos_matches[i])) {
+			excludes = excludes.replaceAll(pos_matches[i],'')
+		}
+	}
+	console.log(contains, pos_matches, excludes)
 	var filtered_words = []
 
 	for(var i=0; i < WORDS.length; i++) {

@@ -14,6 +14,9 @@ pos_matches = [None,None,None,None,None] # green letters
 neg_matches = set() # letter/position values that are yellow
 
 def matches(word):
+	# Deal with edge case where a second of the same letter is greyed out
+	for entry in contains:
+		excludes.discard(entry)
 	# Not a match if it contains black letters
 	if len(set(word).intersection(excludes)) > 0:
 		return False
